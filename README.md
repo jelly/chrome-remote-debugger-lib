@@ -12,13 +12,12 @@ Usage
 
     from chrome_remote_lib import ChromeShell
 
-    In [136]: shell = ChromeShell()
+    In []: shell = ChromeShell()
 
-    In [137]: tab1 = shell.tabs()[1]
+    In []: tab1 = shell.tabs()[1]
 
-    In [138]: tab1.reload()
-    Out[138]: True
+    In []: tab1.reload()
+    Out[]: True
 
-    In [139]: tab1.reload()
-    Out[139]: True
+
 
