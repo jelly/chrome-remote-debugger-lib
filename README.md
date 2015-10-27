@@ -19,5 +19,5 @@ Usage
     In []: tab1.reload()
     Out[]: True
 
-
-
+    In []: shell.create_tab('https://github.com')
+    Out[]: ChromiumTab()
