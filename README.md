@@ -5,7 +5,7 @@ Start chrom(ium) with the following option:
 
      chromium --remote-debugging-port=9222
 
-Part of the protocl seems to be documented [here](https://developer.chrome.com/devtools/docs/protocol/1.1/page)
+Part of the protocol seems to be documented [here](https://developer.chrome.com/devtools/docs/protocol/1.1/page)
 
 Usage
 -----
