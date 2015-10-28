@@ -4,6 +4,9 @@ import sys
 import requests
 import websocket
 
+class ChromeDebuggerConnectionError(Exception):
+    pass
+
 class ChromeShell(object):
     def __init__(self, host='localhost', port=9222):
         self.host = host
@@ -11,9 +14,11 @@ class ChromeShell(object):
         self.url = 'http://{0}:{1}/json/'.format(self.host, self.port)
 
     def tabs(self):
-        # FIXME: Exception
+        try:
+            tabs = json.loads(requests.get(self.url + 'list').text)
+        except requests.ConnectionError:
+            raise ChromeDebuggerConnectionError('Unable to connect to Chrome debugger on {0}'.format(self.url))
 
-        tabs = json.loads(requests.get(self.url + 'list').text)
         return [ChromeTab(tab, self) for tab in tabs]
 
     def create_tab(self, url = None):
