@@ -13,13 +13,13 @@ class ChromeShell(object):
         self.port = port
         self.url = 'http://{0}:{1}/json/'.format(self.host, self.port)
 
-    def tabs(self):
+    def tabs(self, title=''):
         try:
             tabs = json.loads(requests.get(self.url + 'list').text)
         except requests.ConnectionError:
             raise ChromeDebuggerConnectionError('Unable to connect to Chrome debugger on {0}'.format(self.url))
 
-        return [ChromeTab(tab, self) for tab in tabs]
+        return [ChromeTab(tab, self) for tab in tabs if title in tab['title']]
 
     def create_tab(self, url = None):
         if url:
@@ -40,9 +40,14 @@ class ChromeTab(object):
         self.cmd_id = 1
         self._ws = None # Lazy load websocket url
 
+
     @property
     def id(self):
         return self.data['id']
+
+    @property
+    def title(self):
+        return self.data['title']
 
     @property
     def ws(self):
@@ -85,6 +90,7 @@ class ChromeTab(object):
 
 
     def __unicode__(self):
+        # XXX: empty title
         return u'ChromiumTab({0})'.format(self.data['title'])
 
     def __repr__(self):
