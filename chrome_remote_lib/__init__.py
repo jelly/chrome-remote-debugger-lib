@@ -85,13 +85,15 @@ class ChromeTab(object):
 
         data = json.loads(self.ws.recv())
         # FIXME: resolve to new tab instance.
-        print data
+        print(data)
         # XXX: update tab
 
+    def __repr__(self):
+        if sys.version_info > (3, 0):
+            return u'ChromiumTab({0})'.format(self.data['title'])
+        else:
+            return unicode(self).encode(sys.stdout.encoding or 'utf8')
 
     def __unicode__(self):
         # XXX: empty title
         return u'ChromiumTab({0})'.format(self.data['title'])
-
-    def __repr__(self):
-        return unicode(self).encode(sys.stdout.encoding or 'utf8')
